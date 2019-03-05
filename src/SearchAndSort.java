@@ -434,7 +434,7 @@ public class SearchAndSort {
 													for (int i = 0; i < data.split(",").length; i++){
 														arrayInt[i] = Integer.parseInt(data.split(",")[i]);
 													}
-													System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayInt, arrayInt[0], 0, arrayInt.length-1)));
+													System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayInt, arrayInt[0])));
 													next = true;
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
@@ -451,7 +451,7 @@ public class SearchAndSort {
 													for (int i = 0; i < data.split(",").length; i++){
 														arrayInt.add(Integer.parseInt(data.split(",")[i]));
 													}
-													System.out.println("Merge Sort: " + s.mergeSort(arrayInt, arrayInt.get(0), 0, arrayInt.size()-1).toString());
+													System.out.println("Merge Sort: " + s.mergeSort(arrayInt, arrayInt.get(0)));
 													next = true;
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
@@ -489,7 +489,7 @@ public class SearchAndSort {
 													}
 													
 													if (!invalid){
-														System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayString, arrayString[0], 0, arrayString.length-1)));//TODO problem
+														System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayString, arrayString[0])));//TODO problem
 														next = true;
 													}else{
 														System.out.println("Invalid Input");
@@ -519,7 +519,7 @@ public class SearchAndSort {
 													}
 													
 													if (!invalid){
-														System.out.println("Merge Sort: " + s.mergeSort(arrayString, arrayString.get(0), 0, arrayString.size()-1).toString());
+														System.out.println("Merge Sort: " + s.mergeSort(arrayString, arrayString.get(0)).toString());
 														next = true;
 													}else{
 														System.out.println("Invalid Input");
@@ -1150,245 +1150,175 @@ public class SearchAndSort {
 		return stringArray;
 	}
 	
-	public Integer[] mergeSort(Integer intArray[], Integer firstElement, int l, int r){
-		if (l < r) 
-        { 
-            int m = (l+r)/2; 
-  
-            mergeSort(intArray, intArray[0], l, m); 
-            mergeSort(intArray, intArray[0], m+1, r); 
-  
-            merge(intArray, intArray[0], l, m, r); 
-        } 
-		return intArray;
+	public Integer[] mergeSort(Integer[] intArray, Integer firstElement){
+		int N = intArray.length; 
+		int mid = (int) N/2;
+        if (N < 2) {
+        	return intArray; 
+        }
+        // recursively sort 
+        Integer[] arr1 = new Integer[mid];
+        for (int i =0; i < mid; i++){
+        	arr1[i] = intArray[i];
+        }
+        Integer[] arr2 = new Integer[N-mid];
+        for (int i = mid; i < N; i++){
+        	arr2[i-mid] = intArray[i];
+        }
+        arr1 = mergeSort(arr1, arr1[0]); 
+        arr2 = mergeSort(arr2, arr2[0]); 
+        // merge two sorted subarrays
+        
+        
+        int i = 0;
+		int j = 0;
+		int k = 0;
+	    while (i < mid && j < (N-mid)) {
+	        if (arr1[i] <= arr2[j]) {
+	        	intArray[k++] = arr1[i++];
+	        }
+	        else {
+	        	intArray[k++] = arr2[j++];
+	        }
+	    }
+	    while (i < mid) {
+	    	intArray[k++] = arr1[i++];
+	    }
+	    while (j < (N-mid)) {
+	    	intArray[k++] = arr2[j++];
+	    }
+        
+        
+        return intArray;
+        
 	}
 	
-	public void merge(Integer intArray[], Integer firstElement, int l, int m, int r){
-        int n1 = m - l + 1; 
-        int n2 = r - m; 
-  
-        int L[] = new int [n1]; 
-        int R[] = new int [n2]; 
-  
-        for (int i=0; i<n1; ++i) 
-            L[i] = intArray[l + i]; 
-        for (int j=0; j<n2; ++j) 
-            R[j] = intArray[m + 1 + j]; 
-  
-  
-  
-        int i = 0, j = 0; 
-  
-        int k = l; 
-        while (i < n1 && j < n2) 
-        { 
-            if (L[i] <= R[j]) 
-            { 
-                intArray[k] = L[i]; 
-                i++; 
-            } 
-            else
-            { 
-                intArray[k] = R[j]; 
-                j++; 
-            } 
-            k++; 
-        } 
-  
-        while (i < n1) 
-        { 
-            intArray[k] = L[i]; 
-            i++; 
-            k++; 
-        } 
-  
-        while (j < n2) 
-        { 
-            intArray[k] = R[j]; 
-            j++; 
-            k++; 
-        } 
-	}
-	
-	public String[] mergeSort(String stringArray[], String firstElement, int l, int r){
-		if (l < r) 
-        { 
-            int m = (l+r)/2; 
-  
-            mergeSort(stringArray, stringArray[0], l, m); 
-            mergeSort(stringArray, stringArray[0], m+1, r); 
-  
-            merge(stringArray, stringArray[0], l, m, r); 
-        } 
-		return stringArray;
-	}
-	
-	public void merge(String stringArray[], String firstElement, int l, int m, int r){
+	public String[] mergeSort(String stringArray[], String firstElement){
 		Collator myCollator = Collator.getInstance();
-        int n1 = m - l + 1; 
-        int n2 = r - m; 
-  
-        String L[] = new String [n1]; 
-        String R[] = new String [n2]; 
-  
-        for (int i=0; i<n1; ++i) 
-            L[i] = stringArray[l + i]; 
-        for (int j=0; j<n2; ++j) 
-            R[j] = stringArray[m + 1+ j]; 
-  
-  
-  
-        int i = 0, j = 0; 
-  
-        int k = l; 
-        while (i < n1 && j < n2) 
-        { 
-            if (myCollator.compare(L[i], R[i]) <= 0) 
-            { 
-                stringArray[k] = L[i]; 
-                i++; 
-            } 
-            else
-            { 
-                stringArray[k] = R[j]; 
-                j++; 
-            } 
-            k++; 
-        } 
-  
-        while (i < n1) 
-        { 
-            stringArray[k] = L[i]; 
-            i++; 
-            k++; 
-        } 
-  
-        while (j < n2) 
-        { 
-            stringArray[k] = R[j]; 
-            j++; 
-            k++; 
-        } 
+		int N = stringArray.length; 
+		int mid = (int) N/2;
+        if (N < 2) {
+        	return stringArray; 
+        }
+        // recursively sort 
+        String[] arr1 = new String[mid];
+        for (int i =0; i < mid; i++){
+        	arr1[i] = stringArray[i];
+        }
+        String[] arr2 = new String[N-mid];
+        for (int i = mid; i < N; i++){
+        	arr2[i-mid] = stringArray[i];
+        }
+        arr1 = mergeSort(arr1, arr1[0]); 
+        arr2 = mergeSort(arr2, arr2[0]); 
+        // merge two sorted subarrays
+        
+        
+        int i = 0;
+		int j = 0;
+		int k = 0;
+	    while (i < mid && j < (N-mid)) {
+	        if (myCollator.compare(arr1[i], arr2[j]) <= 0) {
+	        	stringArray[k++] = arr1[i++];
+	        }
+	        else {
+	        	stringArray[k++] = arr2[j++];
+	        }
+	    }
+	    while (i < mid) {
+	    	stringArray[k++] = arr1[i++];
+	    }
+	    while (j < (N-mid)) {
+	    	stringArray[k++] = arr2[j++];
+	    }
+        
+        
+        return stringArray;
 	}
 	
-	public ArrayList<Integer> mergeSort(ArrayList<Integer> intArray, Integer firstElement, int l, int r){
-		if (l < r) 
-        { 
-            int m = (l+r)/2; 
-  
-            mergeSort(intArray, intArray.get(0), l, m); 
-            mergeSort(intArray, intArray.get(0), m+1, r); 
-  
-            merge(intArray, intArray.get(0), l, m, r); 
-        } 
-		return intArray;
-		
+	public ArrayList<Integer> mergeSort(ArrayList<Integer> intArray, Integer firstElement){
+		int N = intArray.size(); 
+		int mid = (int) N/2;
+        if (N < 2) {
+        	return intArray; 
+        }
+        // recursively sort 
+        ArrayList<Integer> arr1 = new ArrayList<Integer>();
+        for (int i =0; i < mid; i++){
+        	arr1.add(intArray.get(i));
+        }
+        ArrayList<Integer> arr2 = new ArrayList<Integer>();
+        for (int i = mid; i < N; i++){
+        	arr2.add(intArray.get(i));
+        }
+        arr1 = mergeSort(arr1, arr1.get(0)); 
+        arr2 = mergeSort(arr2, arr2.get(0)); 
+        // merge two sorted subarrays
+        
+        
+        int i = 0;
+		int j = 0;
+		int k = 0;
+	    while (i < mid && j < (N-mid)) {
+	        if (arr1.get(i) <= arr2.get(j)) {
+	        	intArray.set(k++, arr1.get(i++));
+	        }
+	        else {
+	        	intArray.set(k++, arr2.get(j++));
+	        }
+	    }
+	    while (i < mid) {
+	    	intArray.set(k++, arr1.get(i++));
+	    }
+	    while (j < (N-mid)) {
+	    	intArray.set(k++, arr2.get(j++));
+	    }
+        
+        
+        return intArray;
 	}
 
-	public void merge(ArrayList<Integer> intArray, Integer firstElement, int l, int m, int r){
-        int n1 = m - l + 1; 
-        int n2 = r - m; 
-  
-        int L[] = new int [n1]; 
-        int R[] = new int [n2]; 
-  
-        for (int i=0; i<n1; ++i) 
-            L[i] = intArray.get(l + i); 
-        for (int j=0; j<n2; ++j) 
-            R[j] = intArray.get(m + 1+ j); 
-  
-  
-  
-        int i = 0, j = 0; 
-  
-        int k = l; 
-        while (i < n1 && j < n2) 
-        { 
-            if (L[i] <= R[j]) 
-            { 
-                intArray.set(k, L[i]); 
-                i++; 
-            } 
-            else
-            { 
-                intArray.set(k, R[j]); 
-                j++; 
-            } 
-            k++; 
-        } 
-  
-        while (i < n1) 
-        { 
-            intArray.set(k, L[i]); 
-            i++; 
-            k++; 
-        } 
-  
-        while (j < n2) 
-        { 
-            intArray.set(k, R[j]); 
-            j++; 
-            k++; 
-        } 
-	}
-	
-	public ArrayList<String> mergeSort(ArrayList<String> stringArray, String firstElement, int l, int r){
-		if (l < r) 
-        { 
-            int m = (l+r)/2; 
-  
-            mergeSort(stringArray, stringArray.get(0), l, m); 
-            mergeSort(stringArray, stringArray.get(0), m+1, r); 
-  
-            merge(stringArray, stringArray.get(0), l, m, r); 
-        } 
-		return stringArray;
-	}
-	
-	public void merge(ArrayList<String> stringArray, String firstElement, int l, int m, int r){
+	public ArrayList<String> mergeSort(ArrayList<String> stringArray, String firstElement){
 		Collator myCollator = Collator.getInstance();
-        int n1 = m - l + 1; 
-        int n2 = r - m; 
-  
-        String L[] = new String [n1]; 
-        String R[] = new String [n2]; 
-  
-        for (int i=0; i<n1; ++i) 
-            L[i] = stringArray.get(l + i); 
-        for (int j=0; j<n2; ++j) 
-            R[j] = stringArray.get(m + 1+ j); 
-    
-        int i = 0, j = 0; 
-  
-        int k = l; 
-        while (i < n1 && j < n2) 
-        { 
-            if (myCollator.compare(L[i], R[j]) <= 0) 
-            { 
-                stringArray.set(k, L[i]); 
-                i++; 
-            } 
-            else
-            { 
-                stringArray.set(k, R[j]); 
-                j++; 
-            } 
-            k++; 
-        } 
-  
-        while (i < n1) 
-        { 
-            stringArray.set(k, L[i]); 
-            i++; 
-            k++; 
-        } 
-  
-        while (j < n2) 
-        { 
-            stringArray.set(k, R[j]); 
-            j++; 
-            k++; 
-        } 
+		int N = stringArray.size(); 
+		int mid = (int) N/2;
+        if (N < 2) {
+        	return stringArray; 
+        }
+        // recursively sort 
+        ArrayList<String> arr1 = new ArrayList<String>();
+        for (int i =0; i < mid; i++){
+        	arr1.add(stringArray.get(i));
+        }
+        ArrayList<String> arr2 = new ArrayList<String>();
+        for (int i = mid; i < N; i++){
+        	arr2.add(stringArray.get(i));
+        }
+        arr1 = mergeSort(arr1, arr1.get(0)); 
+        arr2 = mergeSort(arr2, arr2.get(0)); 
+        // merge two sorted subarrays
+        
+        
+        int i = 0;
+		int j = 0;
+		int k = 0;
+	    while (i < mid && j < (N-mid)) {
+	        if (myCollator.compare(arr1.get(i), arr2.get(j)) <= 0) {
+	        	stringArray.set(k++, arr1.get(i++));
+	        }
+	        else {
+	        	stringArray.set(k++, arr2.get(j++));
+	        }
+	    }
+	    while (i < mid) {
+	    	stringArray.set(k++, arr1.get(i++));
+	    }
+	    while (j < (N-mid)) {
+	    	stringArray.set(k++, arr2.get(j++));
+	    }
+        
+        
+        return stringArray;
 	}
 	
 	public int linearSearch(Integer intArray[], Integer firstElement, int target){
