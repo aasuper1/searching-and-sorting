@@ -1367,72 +1367,77 @@ public class SearchAndSort {
 	}
 	
 	int binarySearch(Integer intArray[], Integer firstElement,  int l, int r, int target) { 
-        if (r >= l) { 
-            int mid = l + (r - l) / 2; 
-
-            if (intArray[mid] == target) 
-                return mid; 
-  
-
-            if (intArray[mid] > target) 
-                return binarySearch(intArray, intArray[0], l, mid - 1, target); 
-  
-
-            return binarySearch(intArray, intArray[0], mid + 1, r, target); 
-        } 
-  
-
-        return -1; 
+		intArray = bubbleSort(intArray, intArray[0]);
+		int start = 0;
+		int end = intArray.length - 1;	
+		int position = -1;
+		while (start <= end) {
+			position = (int) ((end + start) / 2);
+			if (intArray[position] > target) {
+				end = position - 1;
+			} else if (intArray[position] < target) {
+				start = position + 1; 
+			} else {
+				return position;
+			}
+		}
+		return -1;
     } 
 	
 	int binarySearch(String stringArray[], String firstElement,  int l, int r, String target) { 
 		Collator myCollator = Collator.getInstance();
-        if (r >= l) { 
-            int mid = l + (r - l) / 2; 
-  
-
-            if (stringArray[mid] == target) 
-                return mid; 
-
-            if (myCollator.compare(stringArray[mid], target) > 0)
-                return binarySearch(stringArray, stringArray[0], l, mid - 1, target); 
-
-            return binarySearch(stringArray, stringArray[0], mid + 1, r, target); 
-        } 
-
-        return -1; 
+		stringArray = bubbleSort(stringArray, stringArray[0]);
+		int start = 0;
+		int end = stringArray.length - 1;	
+		int position = -1;
+		while (start <= end) {
+			position = (int) ((end + start) / 2);
+			if (myCollator.compare(stringArray[position], target) > 0) {
+				end = position - 1;
+			} else if (myCollator.compare(stringArray[position], target) < 0) {
+				start = position + 1; 
+			} else {
+				return position;
+			}
+		}
+		return -1;
     } 
 	
 	int binarySearch(ArrayList<Integer> intArray, Integer firstElement,  int l, int r, int target) { 
-        if (r >= l) { 
-            int mid = l + (r - l) / 2; 
-
-            if (intArray.get(mid) == target) 
-                return mid; 
- 
-            if (intArray.get(mid) > target) 
-                return binarySearch(intArray, intArray.get(0), l, mid - 1, target); 
-
-            return binarySearch(intArray, intArray.get(0), mid + 1, r, target); 
-        } 
-        return -1; 
+		intArray = bubbleSort(intArray, intArray.get(0));
+		int start = 0;
+		int end = intArray.size() - 1;	
+		int position = -1;
+		while (start <= end) {
+			position = (int) ((end + start) / 2);
+			if (intArray.get(position) > target) {
+				end = position - 1;
+			} else if (intArray.get(position) < target) {
+				start = position + 1; 
+			} else {
+				return position;
+			}
+		}
+		return -1;
     } 
 	
 	int binarySearch(ArrayList<String> stringArray, String firstElement,  int l, int r, String target) { 
 		Collator myCollator = Collator.getInstance();
-        if (r >= l) { 
-            int mid = l + (r - l) / 2; 
-
-            if (stringArray.get(mid).equals(target)) 
-                return mid; 
-
-            if (myCollator.compare(stringArray.get(mid), target) > 0)
-                return binarySearch(stringArray, stringArray.get(0), l, mid - 1, target); 
-
-            return binarySearch(stringArray, stringArray.get(0), mid + 1, r, target); 
-        } 
-
-        return -1; 
+		stringArray = bubbleSort(stringArray, stringArray.get(0));
+		int start = 0;
+		int end = stringArray.size() - 1;	
+		int position = -1;
+		while (start <= end) {
+			position = (int) ((end + start) / 2);
+			if (myCollator.compare(stringArray.get(position), target) > 0) {
+				end = position - 1;
+			} else if (myCollator.compare(stringArray.get(position), target) < 0) {
+				start = position + 1; 
+			} else {
+				return position;
+			}
+		}
+		return -1;
     } 
 
 }
