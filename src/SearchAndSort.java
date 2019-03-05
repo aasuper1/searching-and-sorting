@@ -410,7 +410,7 @@ public class SearchAndSort {
 						}
 					} while (!datatype.toLowerCase().equals("integers") && !datatype.toLowerCase().equals("strings"));
 				}
-				else if (option.toLowerCase().equals("merge")) { //TODO
+				else if (option.toLowerCase().equals("merge")) { 
 					String datatype;
 					do {
 						System.out.println("What type of data? Acceptable responses: integers, strings.");
@@ -434,7 +434,7 @@ public class SearchAndSort {
 													for (int i = 0; i < data.split(",").length; i++){
 														arrayInt[i] = Integer.parseInt(data.split(",")[i]);
 													}
-													//System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayInt, arrayInt[0])));
+													System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayInt, arrayInt[0], 0, arrayInt.length-1)));
 													next = true;
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
@@ -451,7 +451,7 @@ public class SearchAndSort {
 													for (int i = 0; i < data.split(",").length; i++){
 														arrayInt.add(Integer.parseInt(data.split(",")[i]));
 													}
-												//	System.out.println("Merge Sort: " + s.mergeSort(arrayInt, arrayInt.get(0)).toString());
+													System.out.println("Merge Sort: " + s.mergeSort(arrayInt, arrayInt.get(0), 0, arrayInt.size()-1).toString());
 													next = true;
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
@@ -489,7 +489,7 @@ public class SearchAndSort {
 													}
 													
 													if (!invalid){
-														//System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayString, arrayString[0])));
+														System.out.println("Merge Sort: " + Arrays.toString(s.mergeSort(arrayString, arrayString[0], 0, arrayString.length-1)));//TODO problem
 														next = true;
 													}else{
 														System.out.println("Invalid Input");
@@ -519,7 +519,7 @@ public class SearchAndSort {
 													}
 													
 													if (!invalid){
-														//System.out.println("Merge Sort: " + s.mergeSort(arrayString, arrayString.get(0)).toString());
+														System.out.println("Merge Sort: " + s.mergeSort(arrayString, arrayString.get(0), 0, arrayString.size()-1).toString());
 														next = true;
 													}else{
 														System.out.println("Invalid Input");
@@ -564,8 +564,22 @@ public class SearchAndSort {
 													for (int i = 0; i < data.split(",").length; i++){
 														arrayInt[i] = Integer.parseInt(data.split(",")[i]);
 													}
-													//System.out.println("Linear Search: " + Arrays.toString(s.linearSearch(arrayInt, arrayInt[0])));
 													next = true;
+													// Start
+													int target;
+													String lastInput;
+													boolean nextFinal = false;
+													do{
+														System.out.println("Enter your target");
+														lastInput = s.input.nextLine();
+														try {
+															target = Integer.parseInt(lastInput);
+															System.out.println("Linear Search: element index " + s.linearSearch(arrayInt, arrayInt[0], target));
+															nextFinal = true;
+														}catch(NumberFormatException e){
+															System.out.print("Invalid Input");
+														}
+													}while(!nextFinal);
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
 												}
@@ -583,6 +597,20 @@ public class SearchAndSort {
 													}
 													//System.out.println("Linear Search: " + s.linearSearch(arrayInt, arrayInt.get(0)).toString());
 													next = true;
+													int target;
+													String lastInput;
+													boolean nextFinal = false;
+													do{
+														System.out.println("Enter your target");
+														lastInput = s.input.nextLine();
+														try {
+															target = Integer.parseInt(lastInput);
+															System.out.println("Linear Search: element index " + s.linearSearch(arrayInt, arrayInt.get(0), target));
+															nextFinal = true;
+														}catch(NumberFormatException e){
+															System.out.print("Invalid Input");
+														}
+													}while(!nextFinal);
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
 												}
@@ -621,6 +649,20 @@ public class SearchAndSort {
 													if (!invalid){
 														//System.out.println("Linear Search: " + Arrays.toString(s.linearSearch(arrayString, arrayString[0])));
 														next = true;
+														String target;
+														String lastInput;
+														boolean nextFinal = false;
+														do{
+															System.out.println("Enter your target");
+															lastInput = s.input.nextLine();
+															try {
+																target = lastInput;
+																System.out.println("Linear Search: element index " + s.linearSearch(arrayString, arrayString[0], target));
+																nextFinal = true;
+															}catch(NumberFormatException e){
+																System.out.print("Invalid Input");
+															}
+														}while(!nextFinal);
 													}else{
 														System.out.println("Invalid Input");
 													}
@@ -651,6 +693,20 @@ public class SearchAndSort {
 													if (!invalid){
 														//System.out.println("Linear Search: " + s.linearSearch(arrayString, arrayString.get(0)).toString());
 														next = true;
+														String target;
+														String lastInput;
+														boolean nextFinal = false;
+														do{
+															System.out.println("Enter your target");
+															lastInput = s.input.nextLine();
+															try {
+																target = lastInput;
+																System.out.println("Linear Search: element index " + s.linearSearch(arrayString, arrayString.get(0), target));
+																nextFinal = true;
+															}catch(NumberFormatException e){
+																System.out.print("Invalid Input");
+															}
+														}while(!nextFinal);
 													}else{
 														System.out.println("Invalid Input");
 													}
@@ -696,6 +752,21 @@ public class SearchAndSort {
 													}
 													//System.out.println("Binary Search: " + Arrays.toString(s.binarySearch(arrayInt, arrayInt[0])));
 													next = true;
+													int target;
+													String lastInput;
+													boolean nextFinal = false;
+													do{
+														System.out.println("Enter your target");
+														lastInput = s.input.nextLine();
+														try {
+															target = Integer.parseInt(lastInput);
+															arrayInt = s.bubbleSort(arrayInt, arrayInt[0]);
+															System.out.println("Binary Search: element index " + s.binarySearch(arrayInt, arrayInt[0], 0, arrayInt.length -1, target));
+															nextFinal = true;
+														}catch(NumberFormatException e){
+															System.out.print("Invalid Input");
+														}
+													}while(!nextFinal);
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
 												}
@@ -713,6 +784,21 @@ public class SearchAndSort {
 													}
 													//System.out.println("Binary Search: " + s.binarySearch(arrayInt, arrayInt.get(0)).toString());
 													next = true;
+													int target;
+													String lastInput;
+													boolean nextFinal = false;
+													do{
+														System.out.println("Enter your target");
+														lastInput = s.input.nextLine();
+														try {
+															target = Integer.parseInt(lastInput);
+															arrayInt = s.bubbleSort(arrayInt, arrayInt.get(0));
+															System.out.println("Binary Search: element index " + s.binarySearch(arrayInt, arrayInt.get(0), 0, arrayInt.size() -1, target));
+															nextFinal = true;
+														}catch(NumberFormatException e){
+															System.out.print("Invalid Input");
+														}
+													}while(!nextFinal);
 												}catch(NumberFormatException e){
 													System.out.println("Invalid Input");
 												}
@@ -751,6 +837,21 @@ public class SearchAndSort {
 													if (!invalid){
 														//System.out.println("Binary Search: " + Arrays.toString(s.binarySearch(arrayString, arrayString[0])));
 														next = true;
+														String target;
+														String lastInput;
+														boolean nextFinal = false;
+														do{
+															System.out.println("Enter your target");
+															lastInput = s.input.nextLine();
+															try {
+																target = lastInput;
+																arrayString = s.bubbleSort(arrayString, arrayString[0]);
+																System.out.println("Binary Search: element index " + s.binarySearch(arrayString, arrayString[0], 0, arrayString.length -1, target));
+																nextFinal = true;
+															}catch(NumberFormatException e){
+																System.out.print("Invalid Input");
+															}
+														}while(!nextFinal);
 													}else{
 														System.out.println("Invalid Input");
 													}
@@ -781,6 +882,21 @@ public class SearchAndSort {
 													if (!invalid){
 														//System.out.println("Binary Search: " + s.binarySearch(arrayString, arrayString.get(0)).toString());
 														next = true;
+														String target;
+														String lastInput;
+														boolean nextFinal = false;
+														do{
+															System.out.println("Enter your target");
+															lastInput = s.input.nextLine();
+															try {
+																target = lastInput;
+																arrayString = s.bubbleSort(arrayString, arrayString.get(0));
+																System.out.println("Binary Search: element index " + s.binarySearch(arrayString, arrayString.get(0), 0, arrayString.size() -1, target));
+																nextFinal = true;
+															}catch(NumberFormatException e){
+																System.out.print("Invalid Input");
+															}
+														}while(!nextFinal);
 													}else{
 														System.out.println("Invalid Input");
 													}
@@ -966,9 +1082,7 @@ public class SearchAndSort {
             int key = intArray[i]; 
             int j = i-1; 
   
-            /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
+
             while (j>=0 && intArray[j] > key) 
             { 
                 intArray[j+1] = intArray[j]; 
@@ -987,9 +1101,7 @@ public class SearchAndSort {
             String key = stringArray[i]; 
             int j = i-1; 
   
-            /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
+
             while (j>=0 && myCollator.compare(stringArray[j], key) > 0) 
             { 
                 stringArray[j+1] = stringArray[j]; 
@@ -1007,9 +1119,7 @@ public class SearchAndSort {
             int key = intArray.get(i); 
             int j = i-1; 
   
-            /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
+
             while (j>=0 && intArray.get(i) > key) 
             { 
                 intArray.set(j+1, intArray.get(j)); 
@@ -1029,9 +1139,7 @@ public class SearchAndSort {
             String key = stringArray.get(i); 
             int j = i-1; 
   
-            /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
+
             while (j>=0 && myCollator.compare(stringArray.get(j), key) > 0) 
             { 
             	stringArray.set(j+1, stringArray.get(j)); 
@@ -1042,8 +1150,359 @@ public class SearchAndSort {
 		return stringArray;
 	}
 	
+	public Integer[] mergeSort(Integer intArray[], Integer firstElement, int l, int r){
+		if (l < r) 
+        { 
+            int m = (l+r)/2; 
+  
+            mergeSort(intArray, intArray[0], l, m); 
+            mergeSort(intArray, intArray[0], m+1, r); 
+  
+            merge(intArray, intArray[0], l, m, r); 
+        } 
+		return intArray;
+	}
 	
+	public void merge(Integer intArray[], Integer firstElement, int l, int m, int r){
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+  
+        int L[] = new int [n1]; 
+        int R[] = new int [n2]; 
+  
+        for (int i=0; i<n1; ++i) 
+            L[i] = intArray[l + i]; 
+        for (int j=0; j<n2; ++j) 
+            R[j] = intArray[m + 1 + j]; 
+  
+  
+  
+        int i = 0, j = 0; 
+  
+        int k = l; 
+        while (i < n1 && j < n2) 
+        { 
+            if (L[i] <= R[j]) 
+            { 
+                intArray[k] = L[i]; 
+                i++; 
+            } 
+            else
+            { 
+                intArray[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+  
+        while (i < n1) 
+        { 
+            intArray[k] = L[i]; 
+            i++; 
+            k++; 
+        } 
+  
+        while (j < n2) 
+        { 
+            intArray[k] = R[j]; 
+            j++; 
+            k++; 
+        } 
+	}
 	
-	// there is a split function that lets you take comma separated things into an array
-	// arraylist 
+	public String[] mergeSort(String stringArray[], String firstElement, int l, int r){
+		if (l < r) 
+        { 
+            int m = (l+r)/2; 
+  
+            mergeSort(stringArray, stringArray[0], l, m); 
+            mergeSort(stringArray, stringArray[0], m+1, r); 
+  
+            merge(stringArray, stringArray[0], l, m, r); 
+        } 
+		return stringArray;
+	}
+	
+	public void merge(String stringArray[], String firstElement, int l, int m, int r){
+		Collator myCollator = Collator.getInstance();
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+  
+        String L[] = new String [n1]; 
+        String R[] = new String [n2]; 
+  
+        for (int i=0; i<n1; ++i) 
+            L[i] = stringArray[l + i]; 
+        for (int j=0; j<n2; ++j) 
+            R[j] = stringArray[m + 1+ j]; 
+  
+  
+  
+        int i = 0, j = 0; 
+  
+        int k = l; 
+        while (i < n1 && j < n2) 
+        { 
+            if (myCollator.compare(L[i], R[i]) <= 0) 
+            { 
+                stringArray[k] = L[i]; 
+                i++; 
+            } 
+            else
+            { 
+                stringArray[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+  
+        while (i < n1) 
+        { 
+            stringArray[k] = L[i]; 
+            i++; 
+            k++; 
+        } 
+  
+        while (j < n2) 
+        { 
+            stringArray[k] = R[j]; 
+            j++; 
+            k++; 
+        } 
+	}
+	
+	public ArrayList<Integer> mergeSort(ArrayList<Integer> intArray, Integer firstElement, int l, int r){
+		if (l < r) 
+        { 
+            int m = (l+r)/2; 
+  
+            mergeSort(intArray, intArray.get(0), l, m); 
+            mergeSort(intArray, intArray.get(0), m+1, r); 
+  
+            merge(intArray, intArray.get(0), l, m, r); 
+        } 
+		return intArray;
+		
+	}
+
+	public void merge(ArrayList<Integer> intArray, Integer firstElement, int l, int m, int r){
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+  
+        int L[] = new int [n1]; 
+        int R[] = new int [n2]; 
+  
+        for (int i=0; i<n1; ++i) 
+            L[i] = intArray.get(l + i); 
+        for (int j=0; j<n2; ++j) 
+            R[j] = intArray.get(m + 1+ j); 
+  
+  
+  
+        int i = 0, j = 0; 
+  
+        int k = l; 
+        while (i < n1 && j < n2) 
+        { 
+            if (L[i] <= R[j]) 
+            { 
+                intArray.set(k, L[i]); 
+                i++; 
+            } 
+            else
+            { 
+                intArray.set(k, R[j]); 
+                j++; 
+            } 
+            k++; 
+        } 
+  
+        while (i < n1) 
+        { 
+            intArray.set(k, L[i]); 
+            i++; 
+            k++; 
+        } 
+  
+        while (j < n2) 
+        { 
+            intArray.set(k, R[j]); 
+            j++; 
+            k++; 
+        } 
+	}
+	
+	public ArrayList<String> mergeSort(ArrayList<String> stringArray, String firstElement, int l, int r){
+		if (l < r) 
+        { 
+            int m = (l+r)/2; 
+  
+            mergeSort(stringArray, stringArray.get(0), l, m); 
+            mergeSort(stringArray, stringArray.get(0), m+1, r); 
+  
+            merge(stringArray, stringArray.get(0), l, m, r); 
+        } 
+		return stringArray;
+	}
+	
+	public void merge(ArrayList<String> stringArray, String firstElement, int l, int m, int r){
+		Collator myCollator = Collator.getInstance();
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+  
+        String L[] = new String [n1]; 
+        String R[] = new String [n2]; 
+  
+        for (int i=0; i<n1; ++i) 
+            L[i] = stringArray.get(l + i); 
+        for (int j=0; j<n2; ++j) 
+            R[j] = stringArray.get(m + 1+ j); 
+    
+        int i = 0, j = 0; 
+  
+        int k = l; 
+        while (i < n1 && j < n2) 
+        { 
+            if (myCollator.compare(L[i], R[j]) <= 0) 
+            { 
+                stringArray.set(k, L[i]); 
+                i++; 
+            } 
+            else
+            { 
+                stringArray.set(k, R[j]); 
+                j++; 
+            } 
+            k++; 
+        } 
+  
+        while (i < n1) 
+        { 
+            stringArray.set(k, L[i]); 
+            i++; 
+            k++; 
+        } 
+  
+        while (j < n2) 
+        { 
+            stringArray.set(k, R[j]); 
+            j++; 
+            k++; 
+        } 
+	}
+	
+	public int linearSearch(Integer intArray[], Integer firstElement, int target){
+		for(int i = 0; i < intArray.length; i++)
+	    {
+	        if (intArray[i] == target) 
+	        {       
+	            return i; 
+	        }
+	    }
+	    return -1;
+	}
+	
+	public int linearSearch(String stringArray[], String firstElement, String target){
+		for(int i = 0; i < stringArray.length; i++)
+	    {
+	        if (stringArray[i].equals(target)) 
+	        {       
+	            return i; 
+	        }
+	    }
+	    return -1;
+	}
+	
+	public int linearSearch(ArrayList<Integer> intArray, Integer firstElement, int target){
+		for(int i = 0; i < intArray.size(); i++)
+	    {
+	        if (intArray.get(i) == target) 
+	        {       
+	            return i; 
+	        }
+	    }
+	    return -1;
+		
+	}
+	
+	public int linearSearch(ArrayList<String> stringArray, String firstElement, String target){
+		for(int i = 0; i < stringArray.size(); i++)
+	    {
+	        if (stringArray.get(i).equals(target)) 
+	        {       
+	            return i; 
+	        }
+	    }
+	    return -1;
+	}
+	
+	int binarySearch(Integer intArray[], Integer firstElement,  int l, int r, int target) { 
+        if (r >= l) { 
+            int mid = l + (r - l) / 2; 
+
+            if (intArray[mid] == target) 
+                return mid; 
+  
+
+            if (intArray[mid] > target) 
+                return binarySearch(intArray, intArray[0], l, mid - 1, target); 
+  
+
+            return binarySearch(intArray, intArray[0], mid + 1, r, target); 
+        } 
+  
+
+        return -1; 
+    } 
+	
+	int binarySearch(String stringArray[], String firstElement,  int l, int r, String target) { 
+		Collator myCollator = Collator.getInstance();
+        if (r >= l) { 
+            int mid = l + (r - l) / 2; 
+  
+
+            if (stringArray[mid] == target) 
+                return mid; 
+
+            if (myCollator.compare(stringArray[mid], target) > 0)
+                return binarySearch(stringArray, stringArray[0], l, mid - 1, target); 
+
+            return binarySearch(stringArray, stringArray[0], mid + 1, r, target); 
+        } 
+
+        return -1; 
+    } 
+	
+	int binarySearch(ArrayList<Integer> intArray, Integer firstElement,  int l, int r, int target) { 
+        if (r >= l) { 
+            int mid = l + (r - l) / 2; 
+
+            if (intArray.get(mid) == target) 
+                return mid; 
+ 
+            if (intArray.get(mid) > target) 
+                return binarySearch(intArray, intArray.get(0), l, mid - 1, target); 
+
+            return binarySearch(intArray, intArray.get(0), mid + 1, r, target); 
+        } 
+        return -1; 
+    } 
+	
+	int binarySearch(ArrayList<String> stringArray, String firstElement,  int l, int r, String target) { 
+		Collator myCollator = Collator.getInstance();
+        if (r >= l) { 
+            int mid = l + (r - l) / 2; 
+
+            if (stringArray.get(mid).equals(target)) 
+                return mid; 
+
+            if (myCollator.compare(stringArray.get(mid), target) > 0)
+                return binarySearch(stringArray, stringArray.get(0), l, mid - 1, target); 
+
+            return binarySearch(stringArray, stringArray.get(0), mid + 1, r, target); 
+        } 
+
+        return -1; 
+    } 
+
 }
